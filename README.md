@@ -26,5 +26,5 @@ $ ssh someinternalhost
 bastion_IP = 35.217.19.149
 someinternalhost_IP = 10.166.0.5
 ```
-##### Configure VPN server for use letencript sertificate:
-Add ip address "35.217.19.149.sslip.io" in pritunl server's settings
+##### Configure VPN server for use Let's Encript sertificate:
+Add fqdn "35.217.19.149.sslip.io" at pritunl server's settings
