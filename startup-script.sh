@@ -1,4 +1,8 @@
-#! /bin/bash
+# !/ban/bash
+
+# Install ruby & bundler
+sudo apt update
+sudo apt install -y ruby-full ruby-bundler build-essential
 
 # Install MongoDB
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xd68fa50fea312927
@@ -9,8 +13,6 @@ sudo apt install -y mongodb-org
 # Start MongodDB
 sudo systemctl start mongod
 sudo systemctl enable mongod
-appuser@reddit-app:~$ cat deploy.sh
-#! /ban/bash
 
 # Install git
 sudo apt update
