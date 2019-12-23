@@ -1,30 +1,34 @@
 # DmitryMonakhov_infra
 DmitryMonakhov Infra repository
-#### Connect to ssh internal host (someinternalhost) through external host (bastion)
-###### Fisrt way: Oneline command connect to someinternalhost through bastionhost:
-```sh
-$ ssh -i ~/.ssh/appuser -t -A appuser@35.228.94.43 ssh -A appuser@10.166.0.9
-```
-###### Second way: add next lines to ~/.ssh/config:
-```sh
-Host bastion
-  Hostname 35.228.94.43
-  User appuser
-  IdentityFile ~/.ssh/appuser
-  ForwardAgent Yes
-Host someinternalhost
-  Hostname 10.166.0.9
-  User appuser
-  ProxyCommand ssh -q bastion nc -q0 someinternalhost 22
-```
-then run:
-```sh
-$ ssh someinternalhost
-```
-#### Options for VPN connection:
-```sh
+##### Settings from homework#4:
+```console
 bastion_IP = 35.228.94.43
 someinternalhost_IP = 10.166.0.9
 ```
-##### Configure VPN server for use Let's Encript sertificate:
-Add fqdn "35.228.94.43.sslip.io" at pritunl server's settings
+##### App settings
+```console
+testapp_IP = 34.66.35.100
+testapp_port = 9292
+```
+##### Create GCP VM instance:
+```console
+gcloud compute instances create reddit-app \
+	--boot-disk-size=10GB \
+	--image-family ubuntu-1604-lts \
+	--image-project=ubuntu-os-cloud \
+	--machine-type=g1-small \
+	--tags puma-server \
+	--restart-on-failure \
+	--startup-script=startup-script.sh
+```
+##### Create firewall rule:
+```console
+gcloud compute firewall-rules create default-puma-server --allow tcp:9292 --target-tags 'puma-server' --source-ranges 0.0.0.0/0
+```
+##### For install packages and deploy app use install scripts in appuser home directory:
+```sh
+$ cd ~
+$ install_ruby.sh
+$ install_mongodb.sh
+$ deploy.sh
+```
