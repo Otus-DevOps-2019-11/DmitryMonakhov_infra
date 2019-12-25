@@ -1,0 +1,11 @@
+{
+  "project_id": "infra-example",
+  "source_image_family": "ubuntu-1604-lts",
+  "machine_type": "g1-small",
+  "zone": "europe-west1-b",
+  "image_description": "reddit app image template",
+  "ssh_username": "someuser",
+  "disk_size": "10",
+  "network": "default",
+  "tags": "puma-server"
+}
