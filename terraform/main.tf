@@ -12,11 +12,11 @@ provider "google" {
   region  = var.region
 }
 
-resource "google_compute_project_metadata" "default" {
-  # Добавляем ssh-ключи нескольких пользователей к проекту в Metadata для всех VM instance GCP
-  metadata = {
-    ssh-keys = "appuser1:${file(var.public_key_path)} \nappuser2:${file(var.public_key_path)} \nappuser3:${file(var.public_key_path)}"
-  }
+resource "google_compute_project_metadata_item" "ssh-keys" {
+  # Добавляем ssh-ключи нескольких пользователей в Metadata для всех VM instance для конкретного проекта GCP
+  project = var.project
+  key     = "ssh-keys"
+  value   = "appuser1:${file(var.public_key_path)}\nappuser2:${file(var.public_key_path)}\nappuser3:${file(var.public_key_path)}"
 }
 
 resource "google_compute_instance" "app" {
