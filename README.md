@@ -1,6 +1,20 @@
 # DmitryMonakhov_infra
 DmitryMonakhov Infra repository
 
+## homework#09 terraform-2
+### Принципы организации инфраструктурного кода и работа над инфраструктурой в команде на примере Terraform
+Для обеспечения возможности управления доступом к инстансам по протоколу ssh с помощью terraform производится импорт существующего ресурса - правила firewall в terraform.state `terraform import google_compute_firewall.firewall_ssh default-allow-ssh`
+С помощью packer подготовливаются образы reddit-base-db и reddit-base-app:
+`packer build -var-file=variables.json app.json`
+`packer build -var-file=variables.json db.json`
+Для развертывания инстансов приложения и базы данных подготавливаются конфигурационные файлы `app.tf` и `db.tf`
+Для обеспечения переиспользования кода создаются модули terraform: app, db и vpc
+С использованием модулей app, db, vpc подготавливается инфраструктура для окружений `prod` и `stage`
+Для хранение состояния инфраструктуры terraform в Google Cloud Storage используется модуль `storage-bucket`
+Конфигурация реестра модулей описывается в файле `storage-bucket.tf`
+Подключение бэкенда Google Cloud Storage производится с помощью конфигурационного файла `backend.tf`
+Проверить созданный bucket можно с помощью утилиты `gsutil ls`
+
 ## homework#08 terraform-1
 ### Практика IaC с использованием Terraform
 Изучение принципов работы с terraform:
@@ -9,10 +23,9 @@ DmitryMonakhov Infra repository
 - ```terraform fmt``` - форматирование конфигурационных файлов;
 - ```terraform apply``` - собственно создание ресурсов;
 - ```terraform output``` - просмотр выходных переменных;
-- ```terraform.tfvars``` - параметризация конфигурационных файлов с помощью входных переменных, определяемых в в файлах с расширением ```.tf```;
+- ```terraform.tfvars``` - параметризация конфигурационных файлов с помощью входных переменных, определяемыхв в файлах с раширением ```.tf```;
 - установка приложения внутри инстанса VM с помощью провижнеров типа ```file``` и ```remote-exec```, подключающихся по ssh;
-- добавление ssh-ключей в метаданные проекта GCP с помощью ```google_compute_project_metadata_item```. Внимание: любые другие ssh-ключи, добавленные вручную в интерфейсе GCP, будут удалены при применении ```terraform apply```.
-При выполнении ```terraform apply``` будет создан инстанс VM на базе образа reddit-base с описанием ```main.tf```, правило для firewall  и переменными, указанными в ```variables.tf```.
+- добавление ssh-ключей в метаданные проекта GCP с помощью ```google_compute_project_metadata_item```. Любые другие ssh-ключи, добавленные вручную в интерфейсе GCP, будут удалены при применении ```terraform apply```.
 
 ## homework#07 packer-base
 ### Работа с образами VM в облаке. Знакомство с Packer и экосистемой компании HashiCorp
