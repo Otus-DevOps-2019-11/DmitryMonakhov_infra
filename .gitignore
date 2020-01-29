@@ -7,3 +7,9 @@ variables.json
 *.retry
 jdauphant.nginx/
 vault.key
+.vagrant/
+*.log
+*.pyc
+.molecule
+.cache
+.pytest_cache
