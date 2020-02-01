@@ -4,4 +4,4 @@
 
 - src: https://github.com/DmitryMonakhov/practice-db-role.git
   version: master
-  name: db-role
+  name: db
