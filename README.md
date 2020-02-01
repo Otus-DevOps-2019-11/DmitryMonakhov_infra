@@ -15,6 +15,9 @@ DmitryMonakhov Infra repository
 
 Для создания заготовки тестов использовать `molecule init scenario --scenario-name default -r db -d vagrant`. Для применения самих тестов использовать `molecule verify `
 
+Роль `db` вынесена во внешний репозитарий `https://github.com/DmitryMonakhov/practice-db-role`, подключена для окружений `stage` и `prod` в плейбуке `requirements.yml`
+
+
 ## homework#12 ansible-3
 ### Ansible: работа с ролями и окружениями
 Ключевое понятие "Роль" - основной способ группировки и переиспользования конфигурационного кода в Ansible. Рассмотрено использование `ansible-gakaxy` для автоматического формирования структуры ролей `app` и `db`:
