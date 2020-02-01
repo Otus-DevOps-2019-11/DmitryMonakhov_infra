@@ -3,7 +3,7 @@
   hosts: app
   become: true
   roles:
-    - app
+    - role: app
     - role: jdauphant.nginx
       nginx_sites:
         default:
