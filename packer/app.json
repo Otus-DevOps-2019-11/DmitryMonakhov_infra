@@ -3,7 +3,6 @@
 		{
 			"project_id": "",
 			"source_image_family": "",
-			"machine_type": "",
 			"ssh_username": "",
 			"tags": "",
 			"machine_type": "g1-small",
